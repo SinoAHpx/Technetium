@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Technetium.Text.String;
 
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class FluentString
 {
     /// <summary>
@@ -102,7 +103,7 @@ public static class FluentString
     /// <returns>The string with invalid path characters removed</returns>
     public static string RemoveInvalidPathChars(this string origin)
     {
-        return string.Concat(origin.Where(c => !Path.GetInvalidPathChars().Concat(Path.GetInvalidFileNameChars()).Contains(c)));
+        return string.Concat(origin.Where(c => !Path.GetInvalidPathChars().Contains(c)));
     }
 
     /// <summary>
@@ -120,13 +121,13 @@ public static class FluentString
     /// Equivalent to Path.Combine
     /// </summary>
     /// <param name="origin">The string to combine</param>
-    /// <param name="s2">The strings to combine</param>
+    /// <param name="paths">The strings to combine</param>
     /// <returns>The combined string</returns>
-    public static string CombinePath(this string origin, params string[] s2)
+    public static string CombinePath(this string origin, params string[] paths)
     {
         var list = new List<string> { origin };
 
-        return list.Concat(s2).Aggregate(Path.Combine);
+        return list.Concat(paths).Aggregate(Path.Combine);
     }
 
     /// <summary>
@@ -168,19 +169,18 @@ public static class FluentString
     /// <summary>
     /// Substring between two string in this specified string
     /// </summary>
-    /// <param name="origin"></param>
-    /// <param name="left"></param>
-    /// <param name="right"></param>
-    /// <param name="last">Start right string from last index of it</param>
-    /// <returns>The substring between the two strings</returns>
-    /// <exception cref="ArgumentException"></exception>
-    public static string SubstringBetween(this string origin, string left, string right, bool last = false)
+    /// <param name="origin">The string to get the substring between</param>
+    /// <param name="left">The left string of origin</param>
+    /// <param name="right">The right string of origin</param>
+    /// <param name="fromLastIndex">Start right string from fromLastIndex index of it</param>
+    /// <returns>The substring between the two strings, if any of left or right is not contained in original string, null will be returned.</returns>
+    public static string? SubstringBetween(this string origin, string left, string right, bool fromLastIndex = false)
     {
         if (!origin.Contains(left) || !origin.Contains(right))
-            throw new ArgumentException($"Argument does not exist in original string");
+            return null;
 
         var iLeft = origin.IndexOf(left, StringComparison.Ordinal) + left.Length;
-        var iRight = last
+        var iRight = fromLastIndex
             ? origin.LastIndexOf(right, StringComparison.Ordinal)
             : origin.IndexOf(right, StringComparison.Ordinal);
 
@@ -192,19 +192,19 @@ public static class FluentString
     /// </summary>
     /// <param name="origin"></param>
     /// <param name="left"></param>
-    /// <param name="last">Start from last eligible string</param>
+    /// <param name="fromLastIndex">Start from last eligible string</param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public static string SubstringAfter(this string origin, string left, bool last = false)
+    public static string? SubstringAfter(this string origin, string left, bool fromLastIndex = false)
     {
         if (!origin.Contains(left))
-            throw new ArgumentException($"Argument does not exist in original string");
+            return null;
 
-        var iLeft = last
+        var iLeft = fromLastIndex
             ? origin.LastIndexOf(left, StringComparison.Ordinal) + left.Length
             : origin.IndexOf(left, StringComparison.Ordinal) + left.Length;
 
-        return origin.Substring(iLeft);
+        return origin[iLeft..];
     }
 
     /// <summary>
@@ -219,7 +219,7 @@ public static class FluentString
     public static string InsertAfter(this string origin, string left, string toInsert, bool each = true, bool last = false)
     {
         if (each)
-            return origin.Split(new[] { left }, StringSplitOptions.None).JoinToString($"{left}{toInsert}");
+            return origin.Split([left], StringSplitOptions.None).JoinToString($"{left}{toInsert}");
 
         var iLeft = last
             ? origin.LastIndexOf(left, StringComparison.Ordinal)
@@ -240,7 +240,7 @@ public static class FluentString
     public static string InsertBefore(this string origin, string right, string toInsert, bool each = true, bool last = false)
     {
         if (each)
-            return origin.Split(new[] { right }, StringSplitOptions.None).JoinToString($"{toInsert}{right}");
+            return origin.Split([right], StringSplitOptions.None).JoinToString($"{toInsert}{right}");
 
         var iRight = last
             ? origin.LastIndexOf(right, StringComparison.Ordinal)

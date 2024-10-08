@@ -147,13 +147,13 @@ public class FluentStringTest
     public void TestInsertAfter()
     {
         Assert.That("Hello World!".InsertAfter("Hello", ","), Is.EqualTo("Hello, World!"));
-        Assert.That("Hello World!".InsertAfter("o", ",", true), Is.EqualTo("Hello, World,!"));
+        Assert.That("Hello World!".InsertAfter("o", ",", true), Is.EqualTo("Hello, Wo,rld!"));
     }
 
     [Test]
     public void TestInsertBefore()
     {
-        Assert.That("Hello World!".InsertBefore("World", ", "), Is.EqualTo("Hello, World!"));
-        Assert.That("Hello World!".InsertBefore("o", ",", true), Is.EqualTo("Hello, Wo,rld!"));
+        Assert.That("Hello World!".InsertBefore(" World", ","), Is.EqualTo("Hello, World!"));
+        Assert.That("Hello World!".InsertBefore("o", ",", true), Is.EqualTo("Hell,o W,orld!"));
     }
 }
