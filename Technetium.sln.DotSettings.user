@@ -1,0 +1,15 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/ActualSeverity/@EntryValue">INFO</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=11b0b4e4_002D0e7f_002D48bb_002Da5e1_002D6b5cb3a07667/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestSubstringBetween" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::EE9E784A-31A4-41D9-85B9-1A562BCE19F2::net8.0::Technetium.Test.Text.String.FluentStringTest.TestSubstringBetween&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::EE9E784A-31A4-41D9-85B9-1A562BCE19F2::net8.0::Technetium.Test.Text.String.FluentStringTest.TestSubstringAfter&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::EE9E784A-31A4-41D9-85B9-1A562BCE19F2::net8.0::Technetium.Test.Text.String.FluentStringTest.TestInsertAfter&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::EE9E784A-31A4-41D9-85B9-1A562BCE19F2::net8.0::Technetium.Test.Text.String.FluentStringTest.TestInsertBefore&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1623efee_002D85d2_002D4906_002Db2e2_002Da7b4d4096eda/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestInsertBefore" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::EE9E784A-31A4-41D9-85B9-1A562BCE19F2::net8.0::Technetium.Test.Text.String.FluentStringTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
