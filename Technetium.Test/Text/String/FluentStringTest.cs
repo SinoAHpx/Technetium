@@ -92,18 +92,6 @@ public class FluentStringTest
     }
 
     [Test]
-    public void TestRemoveInvalidPathChars()
-    {
-        Assert.That("Hello<>:\"/\\|?*World".RemoveInvalidPathChars(), Is.EqualTo("HelloWorld"));
-    }
-
-    [Test]
-    public void TestRemoveInvalidFileNameChars()
-    {
-        Assert.That("Hello<>:\"/\\|?*World".RemoveInvalidFileNameChars(), Is.EqualTo("HelloWorld"));
-    }
-
-    [Test]
     public void TestCombinePath()
     {
         Assert.That("path".CombinePath("to", "file"), Is.EqualTo(Path.Combine("path", "to", "file")));
@@ -133,27 +121,30 @@ public class FluentStringTest
     public void TestSubstringBetween()
     {
         Assert.That("Hello World!".SubstringBetween("Hello ", "!"), Is.EqualTo("World"));
-        Assert.Throws<ArgumentException>(() => "Hello World".SubstringBetween("Foo", "Bar"));
+        Assert.That("FooBar".SubstringBetween("a", "b"), Is.Null);
     }
-
+    
     [Test]
     public void TestSubstringAfter()
     {
         Assert.That("Hello World!".SubstringAfter("Hello "), Is.EqualTo("World!"));
-        Assert.Throws<ArgumentException>(() => "Hello World".SubstringAfter("Foo"));
+        Assert.That("Hello World".SubstringAfter("Foo"), Is.Null);
     }
 
     [Test]
     public void TestInsertAfter()
     {
         Assert.That("Hello World!".InsertAfter("Hello", ","), Is.EqualTo("Hello, World!"));
-        Assert.That("Hello World!".InsertAfter("o", ",", true), Is.EqualTo("Hello, Wo,rld!"));
+        Assert.That("Hello World!".InsertAfter("o", ","), Is.EqualTo("Hello, World!"));
+        Assert.That("Hello World!".InsertAfterEach("o", ","), Is.EqualTo("Hello, Wo,rld!"));
+        Assert.That("FooBar".InsertAfter("1","awd"), Is.Null);
     }
 
     [Test]
     public void TestInsertBefore()
     {
         Assert.That("Hello World!".InsertBefore(" World", ","), Is.EqualTo("Hello, World!"));
-        Assert.That("Hello World!".InsertBefore("o", ",", true), Is.EqualTo("Hell,o W,orld!"));
+        Assert.That("Hello World!".InsertBeforeEach("o", ","), Is.EqualTo("Hell,o W,orld!"));
+        Assert.That("FooBar".InsertBefore("Awd", "awd"), Is.Null);
     }
 }

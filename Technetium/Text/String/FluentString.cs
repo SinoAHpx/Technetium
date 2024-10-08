@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Http.Headers;
 
 namespace Technetium.Text.String;
 
@@ -211,41 +212,77 @@ public static class FluentString
     /// Insert a string after specified string
     /// </summary>
     /// <param name="origin"></param>
-    /// <param name="left"></param>
-    /// <param name="toInsert"></param>
-    /// <param name="each">Insert after each matched string</param>
+    /// <param name="after"></param>
+    /// <param name="toBeInserted"></param>
     /// <param name="last">Start from last matched string</param>
     /// <returns></returns>
-    public static string InsertAfter(this string origin, string left, string toInsert, bool each = true, bool last = false)
+    public static string? InsertAfter(this string origin, string after, string toBeInserted, bool last = false)
     {
-        if (each)
-            return origin.Split([left], StringSplitOptions.None).JoinToString($"{left}{toInsert}");
-
+        if (!origin.Contains(after))
+        {
+            return null;
+        }
+        
         var iLeft = last
-            ? origin.LastIndexOf(left, StringComparison.Ordinal)
-            : origin.IndexOf(left, StringComparison.Ordinal);
+            ? origin.LastIndexOf(after, StringComparison.Ordinal)
+            : origin.IndexOf(after, StringComparison.Ordinal);
 
-        return origin.Insert(iLeft + 1, toInsert);
+        return origin.Insert(iLeft + after.Length, toBeInserted);
+    }
+
+    /// <summary>
+    /// Insert a string after each eligible strings
+    /// </summary>
+    /// <param name="origin">The original string</param>
+    /// <param name="after"></param>
+    /// <param name="toBeInserted"></param>
+    /// <returns></returns>
+    public static string? InsertAfterEach(this string origin, string after, string toBeInserted)
+    {
+        if (!origin.Contains(after))
+        {
+            return null;
+        }
+        
+        return origin.Split([after], StringSplitOptions.None).JoinToString($"{after}{toBeInserted}");
     }
 
     /// <summary>
     /// Insert a string before specified string
     /// </summary>
     /// <param name="origin"></param>
-    /// <param name="right"></param>
-    /// <param name="toInsert"></param>
-    /// <param name="each">Insert before each matched string</param>
+    /// <param name="before"></param>
+    /// <param name="toBeInserted"></param>
     /// <param name="last">Start from last matched string</param>
     /// <returns></returns>
-    public static string InsertBefore(this string origin, string right, string toInsert, bool each = true, bool last = false)
+    public static string? InsertBefore(this string origin, string before, string toBeInserted, bool last = false)
     {
-        if (each)
-            return origin.Split([right], StringSplitOptions.None).JoinToString($"{toInsert}{right}");
-
+        if (!origin.Contains(before))
+        {
+            return null;
+        }
+        
         var iRight = last
-            ? origin.LastIndexOf(right, StringComparison.Ordinal)
-            : origin.IndexOf(right, StringComparison.Ordinal);
+            ? origin.LastIndexOf(before, StringComparison.Ordinal)
+            : origin.IndexOf(before, StringComparison.Ordinal);
 
-        return origin.Insert(iRight, toInsert);
+        return origin.Insert(iRight, toBeInserted);
+    }
+
+    /// <summary>
+    /// Insert a string before each eligible string
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="before"></param>
+    /// <param name="toBeInserted"></param>
+    /// <returns></returns>
+    public static string? InsertBeforeEach(this string origin, string before, string toBeInserted)
+    {
+        if (!origin.Contains(before))
+        {
+            return null;
+        }
+        
+        return origin.Split([before], StringSplitOptions.None).JoinToString($"{toBeInserted}{before}");
     }
 }
