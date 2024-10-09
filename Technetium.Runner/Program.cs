@@ -6,17 +6,108 @@ namespace Technetium.Runner;
 
 class Program
 {
+    static string a = """
+                [
+                  {
+                    "Name": "Alice Johnson",
+                    "Age": "28",
+                    "Description": "Software engineer with a passion for AI"
+                  },
+                  {
+                    "Name": "Bob Smith",
+                    "Age": "35",
+                    "Description": "Marketing specialist and hobby photographer"
+                  },
+                  {
+                    "Name": "Charlie Brown",
+                    "Age": "42",
+                    "Description": "Experienced project manager in construction"
+                  },
+                  {
+                    "Name": "Diana Lee",
+                    "Age": "31",
+                    "Description": "Freelance graphic designer and illustrator"
+                  },
+                  {
+                    "Name": "Ethan Davis",
+                    "Age": "24",
+                    "Description": "Recent graduate in environmental science"
+                  },
+                  {
+                    "Name": "Fiona Wilson",
+                    "Age": "39",
+                    "Description": "Chef and restaurant owner specializing in fusion cuisine"
+                  },
+                  {
+                    "Name": "George Taylor",
+                    "Age": "55",
+                    "Description": "Retired military officer turned cybersecurity consultant"
+                  },
+                  {
+                    "Name": "Hannah Martinez",
+                    "Age": "29",
+                    "Description": "Pediatric nurse and children's book author"
+                  },
+                  {
+                    "Name": "Ian Foster",
+                    "Age": "33",
+                    "Description": "Professional athlete and fitness coach"
+                  },
+                  {
+                    "Name": "Julia Chang",
+                    "Age": "47",
+                    "Description": "Corporate lawyer with a focus on intellectual property"
+                  }
+                ]
+                """;
+    static string b = """
+               {
+                 "Name": "Alice Johnson",
+                 "Age": "28",
+                 "Description": "Software engineer with a passion for AI",
+                 "Profile": {
+                    "Wealth": false,
+                    "Phone": 114514,
+                    "ID": "awdx",
+                    "Nest": { "Inside": "me" },
+                    "House": [
+                        {
+                           "Type": "Villa",
+                           "Location": "3"
+                        },
+                        {
+                            "Type": "Apartment",
+                            "Location": 1
+                        }
+                    ]
+                 }
+               }
+               """;
     static async Task Main(string[] args)
     {
-        var obj = new MyClass()
+        while (true)
         {
-            Name = "AHpx",
-            Age = "20",
-            Description = "Yet another programmer"
-        };
+            var path = Console.ReadLine();
+            //expect: me
+            var result = Fetch(b, path!);
+            Console.WriteLine(result);
+        }
 
-        var o =  await "{\"Name\":\"Test\",\"Age\":\"24\",\"Description\": \"Yet another programmer.\"}".DeserializeAsync<MyClass>();
-        Console.WriteLine(o.Name);
+    }
+
+    public static string? Fetch(string json, string path)
+    {
+        //Profile.Nest.Inside
+        var jDocument = JsonDocument.Parse(json);
+        if (!path.Contains('.'))
+        {
+            return jDocument.RootElement.GetProperty(path).GetRawText();
+        }
+        var segments = path.Split('.').ToList();
+        var stage = Fetch(Fetch(json, segments[0])!, path.Empty($"{segments[0]}."));
+        segments.RemoveAt(0);
+        
+        return stage;
     }
 
     class MyClass

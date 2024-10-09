@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace Technetium.Text.String;
@@ -105,5 +106,11 @@ public static class JsonString
         {
             return default;
         }
+    }
+
+    public static string? Fetch(this string json)
+    {
+        var jDocument = JsonDocument.Parse(json);
+        return jDocument.RootElement.GetProperty("Name").GetString();
     }
 }
