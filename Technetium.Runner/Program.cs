@@ -86,11 +86,10 @@ class Program
                """;
     static async Task Main(string[] args)
     {
-        while (true)
+        for (var i = 0; i < 100; i++)
         {
-            var path = Console.ReadLine();
-            var json = b.FetchInt32(path);
-            Console.WriteLine(json);
+            Console.WriteLine(RandomString.Random(6));
+
         }
     }
 
