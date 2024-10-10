@@ -5,6 +5,13 @@
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Technetium</Title>
+        <Description>Yet another extension library.</Description>
+        <Copyright>Copyright 2024 AHpx.</Copyright>
+        <PackageProjectUrl>https://github.com/SinoAHpx/Technetium</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/SinoAHpx/Technetium/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/SinoAHpx/Technetium</RepositoryUrl>
+        <PackageTags>tool library extensions</PackageTags>
     </PropertyGroup>
 
 </Project>
