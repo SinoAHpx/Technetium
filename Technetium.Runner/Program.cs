@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Technetium.Text.String;
 
@@ -88,26 +89,9 @@ class Program
         while (true)
         {
             var path = Console.ReadLine();
-            //expect: me
-            var result = Fetch(b, path!);
-            Console.WriteLine(result);
+            var json = b.FetchInt32(path);
+            Console.WriteLine(json);
         }
-
-    }
-
-    public static string? Fetch(string json, string path)
-    {
-        //Profile.Nest.Inside
-        var jDocument = JsonDocument.Parse(json);
-        if (!path.Contains('.'))
-        {
-            return jDocument.RootElement.GetProperty(path).GetRawText();
-        }
-        var segments = path.Split('.').ToList();
-        var stage = Fetch(Fetch(json, segments[0])!, path.Empty($"{segments[0]}."));
-        segments.RemoveAt(0);
-        
-        return stage;
     }
 
     class MyClass

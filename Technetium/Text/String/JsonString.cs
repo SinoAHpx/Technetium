@@ -108,9 +108,142 @@ public static class JsonString
         }
     }
 
-    public static string? Fetch(this string json)
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="jNode"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static JsonNode? FetchJsonNode(this JsonNode jNode, string path)
     {
-        var jDocument = JsonDocument.Parse(json);
-        return jDocument.RootElement.GetProperty("Name").GetString();
+        if (!path.Contains('.'))
+        {
+            return jNode[path];
+        }
+        var segments = path.Split('.').ToList();
+        var stage = FetchJsonNode(FetchJsonNode(jNode, segments[0])!, path.Empty($"{segments[0]}."));
+        segments.RemoveAt(0);
+        
+        return stage;
     }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    private static string? Fetch(this string json, string path)
+    {
+        var jsonNode = JsonNode.Parse(json)!;
+        return FetchJsonNode(jsonNode, path)?.ToString();
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static string? FetchString(this string json, string path)
+    {
+        return Fetch(json, path);
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static bool? FetchBoolean(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? bool.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static decimal? FetchDecimal(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? decimal.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static double? FetchDouble(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? double.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static Guid? FetchGuid(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? Guid.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static int? FetchInt32(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? int.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static long? FetchInt64(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? long.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns>
+    public static float? FetchSingle(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? float.Parse(result) : null;
+    }
+
+    /// <summary>
+    /// Example json: {"name": "x", "nest": {"name": "y"}}, so to get "y", path would be "nest.name"
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="path">A combination of property name and dots</param>
+    /// <returns></returns> 
+    public static DateTime? FetchDateTime(this string json, string path)
+    {
+        var result = Fetch(json, path);
+        return result != null ? DateTime.Parse(result) : null;
+    }
+
 }
