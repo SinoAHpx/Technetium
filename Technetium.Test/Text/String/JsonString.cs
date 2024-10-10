@@ -1,6 +1,6 @@
 using NUnit.Framework;
-using Technetium.Text.String;
 using System.Threading.Tasks;
+using Technetium.Text;
 
 namespace Technetium.Test.Text.String;
 

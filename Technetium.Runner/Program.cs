@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using Technetium.Text.String;
+using Technetium.Text;
 
 namespace Technetium.Runner;
 

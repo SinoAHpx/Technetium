@@ -1,5 +1,5 @@
 using System;
-using Technetium.Text.String;
+using Technetium.Text;
 
 namespace Technetium.Test.Text.String;
 

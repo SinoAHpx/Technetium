@@ -1,6 +1,6 @@
 using Technetium.Collection;
 
-namespace Technetium.Text.String;
+namespace Technetium.Text;
 
 public static class RandomString
 {

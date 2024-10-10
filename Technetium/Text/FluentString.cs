@@ -1,8 +1,6 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.Http.Headers;
 
-namespace Technetium.Text.String;
+namespace Technetium.Text;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class FluentString
