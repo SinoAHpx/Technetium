@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using Technetium.Debug;
+using Technetium.System;
 using Technetium.Text;
 
 namespace Technetium.Runner;
@@ -86,11 +88,7 @@ class Program
                """;
     static async Task Main(string[] args)
     {
-        for (var i = 0; i < 100; i++)
-        {
-            Console.WriteLine(RandomString.Random(6));
-
-        }
+        SystemUtils.GetComputerMemorySize().OutputConsole("Machine memory size: ", "MB");
     }
 
     class MyClass
